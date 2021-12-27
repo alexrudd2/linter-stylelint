@@ -67,7 +67,7 @@
   "devDependencies": {
     "@commitlint/cli": "15.0.0",
     "@commitlint/config-conventional": "15.0.0",
-    "@commitlint/travis-cli": "15.0.0",
+    "@commitlint/travis-cli": "16.0.0",
     "@semantic-release/apm-config": "9.0.1",
     "eslint": "8.5.0",
     "eslint-config-airbnb-base": "15.0.0",
