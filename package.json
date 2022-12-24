@@ -66,9 +66,9 @@
     "stylelint-config-standard": "29.0.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "17.1.2",
-    "@commitlint/config-conventional": "17.1.0",
-    "@commitlint/travis-cli": "17.1.2",
+    "@commitlint/cli": "17.3.0",
+    "@commitlint/config-conventional": "17.3.0",
+    "@commitlint/travis-cli": "17.3.0",
     "eslint": "8.25.0",
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-plugin-import": "2.26.0",
