@@ -62,7 +62,7 @@
     "atom-package-deps": "8.0.0",
     "postcss-scss": "4.0.6",
     "resolve": "1.22.1",
-    "stylelint": "14.14.0",
+    "stylelint": "14.16.1",
     "stylelint-config-standard": "29.0.0"
   },
   "devDependencies": {
