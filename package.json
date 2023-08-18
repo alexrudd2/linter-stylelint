@@ -63,7 +63,7 @@
     "postcss-scss": "4.0.7",
     "resolve": "1.22.1",
     "stylelint": "^13.13.1",
-    "stylelint-config-standard": "22.0.0"
+    "stylelint-config-standard": "34.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "17.7.1",
