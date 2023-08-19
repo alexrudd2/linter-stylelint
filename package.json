@@ -13,7 +13,8 @@
   },
   "scripts": {
     "test": "atom --test spec",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "prepare": "husky install"
   },
   "keywords": [
     "css",
@@ -135,10 +136,5 @@
         "automerge": true
       }
     ]
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
   }
 }
