@@ -46,7 +46,7 @@ export async function copyFileToTempDir(fileToCopyPath) {
 }
 
 describe('The stylelint provider for Linter', () => {
-  const { lint } = require('../lib/index.js').provideLinter();
+  const { lint } = require('../lib/index').provideLinter();
 
   beforeEach(async () => {
     atom.workspace.destroyActivePaneItem();

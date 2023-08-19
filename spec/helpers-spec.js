@@ -12,7 +12,6 @@ const fixturesLocal = path.join(fixtures, 'local-stylelint');
 const autofixableBadFilePath = path.join(fixtures, 'autofix', 'bad.css');
 const autofixableGoodFilePath = path.join(fixtures, 'autofix', 'good.css');
 
-
 describe('Helpers', () => {
   describe('getStylelintPath', () => {
     it('finds a local stylelint when available', async () => {
