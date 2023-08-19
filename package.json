@@ -2,11 +2,11 @@
   "name": "linter-stylelint",
   "version": "4.5.1",
   "private": true,
-  "description": "A plugin for Atom Linter providing an interface to stylelint.",
+  "description": "A plugin for Atom/Pulsar Linter providing an interface to stylelint.",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AtomLinter/linter-stylelint.git"
+    "url": "git+https://github.com/alexrudd2/linter-stylelint.git"
   },
   "engines": {
     "atom": ">=1.7.0 <2.0.0"
@@ -29,7 +29,7 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/AtomLinter/linter-stylelint/issues"
+    "url": "https://github.com/alexrudd2/linter-stylelint/issues"
   },
   "configSchema": {
     "useStandard": {
@@ -56,7 +56,7 @@
       "default": false
     }
   },
-  "homepage": "https://github.com/AtomLinter/linter-stylelint#readme",
+  "homepage": "https://github.com/alexrudd2/linter-stylelint#readme",
   "dependencies": {
     "assign-deep": "1.0.1",
     "atom-linter": "10.0.0",
