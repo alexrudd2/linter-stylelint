@@ -1,7 +1,7 @@
-# linter-stylelint [![Dependency Status](https://david-dm.org/AtomLinter/linter-stylelint.svg)](https://david-dm.org/AtomLinter/linter-stylelint) [![Greenkeeper badge](https://badges.greenkeeper.io/AtomLinter/linter-stylelint.svg)](https://greenkeeper.io/)
-
-A plugin for [Atom Linter](https://github.com/AtomLinter/atom-linter) providing
-an interface to [stylelint](https://github.com/stylelint/stylelint).
+# linter-stylelint
+A plugin for Pulsar's [Linter](https://web.pulsar-edit.dev/packages/linter) providing
+an interface to [stylelint](https://github.com/stylelint/stylelint).  Forked from
+the archived [original](https://github.com/AtomLinter/linter-stylelint).
 
 ![demo](https://raw.githubusercontent.com/AtomLinter/linter-stylelint/master/demo.png)
 
