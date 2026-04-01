@@ -9,7 +9,7 @@
     "url": "https://github.com/alexrudd2/linter-stylelint"
   },
   "engines": {
-    "atom": ">=1.7.0 <2.0.0"
+    "pulsar": ">=1.7.0 <2.0.0"
   },
   "scripts": {
     "test": "pulsar --test spec",
@@ -60,7 +60,6 @@
   "dependencies": {
     "assign-deep": "1.0.1",
     "atom-linter": "10.0.0",
-    "atom-package-deps": "8.0.0",
     "postcss-scss": "4.0.9",
     "resolve": "1.22.11",
     "stylelint": "^13.13.1",
