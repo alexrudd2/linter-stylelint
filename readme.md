@@ -8,7 +8,7 @@ the archived [original](https://github.com/AtomLinter/linter-stylelint).
 ## Installation
 
 ```ShellSession
-apm install linter-stylelint
+pulsar -p install alexrudd2/linter-stylelint
 ```
 
 linter-stylelint runs `stylelint` against your CSS, SCSS, Less, PostCSS,
