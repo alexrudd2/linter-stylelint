@@ -58,6 +58,7 @@
   },
   "homepage": "https://github.com/alexrudd2/linter-stylelint#readme",
   "dependencies": {
+    "@types/jasmine": "^6.0.0",
     "assign-deep": "1.0.1",
     "atom-linter": "10.0.0",
     "postcss-less": "^6.0.0",

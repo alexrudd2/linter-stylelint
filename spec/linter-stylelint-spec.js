@@ -117,7 +117,7 @@ describe('The stylelint provider for Linter', () => {
   it('shows an error notification for a fatal stylelint runtime error', async () => {
     const invalidExtendsPath = path.join(fixtures, 'invalid-extends', 'styles.css');
 
-    spyOn(atom.notifications, 'addError').andCallFake(() => ({}));
+    spyOn(atom.notifications, 'addError').and.callFake(() => ({}));
     const { addError } = atom.notifications;
 
     const editor = await atom.workspace.open(invalidExtendsPath);
@@ -134,7 +134,7 @@ describe('The stylelint provider for Linter', () => {
   it('shows an error notification with a broken syntax configuration', async () => {
     const invalidConfigPath = path.join(fixtures, 'invalid-config', 'styles.css');
 
-    spyOn(atom.notifications, 'addError').andCallFake(() => ({}));
+    spyOn(atom.notifications, 'addError').and.callFake(() => ({}));
     const { addError } = atom.notifications;
 
     const editor = await atom.workspace.open(invalidConfigPath);
@@ -149,7 +149,7 @@ describe('The stylelint provider for Linter', () => {
   });
 
   it('disables when no configuration file is found', async () => {
-    spyOn(atom.notifications, 'addError').andCallFake(() => ({}));
+    spyOn(atom.notifications, 'addError').and.callFake(() => ({}));
 
     const editor = await atom.workspace.open(configStandardPath);
     const messages = await lint(editor);
