@@ -127,7 +127,7 @@
   },
   "renovate": {
     "extends": [
-      "config:base"
+      "config:recommended"
     ],
     "packageRules": [
       {
