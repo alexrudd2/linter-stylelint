@@ -1,10 +1,6 @@
 'use babel';
 
 import path from 'path';
-import {
-  // eslint-disable-next-line no-unused-vars
-  it, fit, wait, beforeEach, afterEach
-} from 'jasmine-fix';
 import * as helpers from '../lib/helpers';
 
 const fixtures = path.join(__dirname, 'fixtures');
