@@ -280,11 +280,11 @@ describe('The stylelint provider for Linter', () => {
 
   describe('the fixOnSave option', () => {
     it('lint updates the editor for autofixable rules when shouldFix is true', async () => {
-      const tempPath = await copyFileToTempDir(path.join(autofixablePath, 'bad.css'));
+      const tempPath = copyFileToTempDir(path.join(autofixablePath, 'bad.css'));
       const tempDir = path.dirname(tempPath);
       const editor = await atom.workspace.open(tempPath);
       const oldText = editor.getText();
-      await copyFileToDir(path.join(autofixablePath, '.stylelintrc'), tempDir);
+      copyFileToDir(path.join(autofixablePath, '.stylelintrc'), tempDir);
       const messages = await lint(editor);
       expect(messages.length).toBe(3);
       const messagesAfterFixing = await lint(editor, { shouldFix: true });
@@ -294,12 +294,12 @@ describe('The stylelint provider for Linter', () => {
     });
 
     it('applies autofixes when saving', async () => {
-      const tempPath = await copyFileToTempDir(path.join(autofixablePath, 'bad.css'));
+      const tempPath = copyFileToTempDir(path.join(autofixablePath, 'bad.css'));
       const tempDir = path.dirname(tempPath);
       const editor = await atom.workspace.open(tempPath);
       const oldText = editor.getText();
       atom.config.set('linter-stylelint.fixOnSave', true);
-      await copyFileToDir(path.join(autofixablePath, '.stylelintrc'), tempDir);
+      copyFileToDir(path.join(autofixablePath, '.stylelintrc'), tempDir);
       const messages = await lint(editor);
       expect(messages.length).toBe(3);
       await editor.save();
@@ -310,12 +310,12 @@ describe('The stylelint provider for Linter', () => {
     });
 
     it('does not update the editor if fixOnSave is disabled', async () => {
-      const tempPath = await copyFileToTempDir(path.join(autofixablePath, 'bad.css'));
+      const tempPath = copyFileToTempDir(path.join(autofixablePath, 'bad.css'));
       const tempDir = path.dirname(tempPath);
       const editor = await atom.workspace.open(tempPath);
       const oldText = editor.getText();
       atom.config.set('linter-stylelint.fixOnSave', false);
-      await copyFileToDir(path.join(autofixablePath, '.stylelintrc'), tempDir);
+      copyFileToDir(path.join(autofixablePath, '.stylelintrc'), tempDir);
       const messages = await lint(editor);
       expect(messages.length).toBe(3);
       await editor.save();
