@@ -1,7 +1,5 @@
-'use babel';
-
-import path from 'path';
-import * as helpers from '../lib/helpers';
+const path = require('path');
+const helpers = require('../lib/helpers.cjs');
 
 const fixtures = path.join(__dirname, 'fixtures');
 const fixturesLocal = path.join(fixtures, 'local-stylelint');

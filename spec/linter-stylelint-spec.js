@@ -1,9 +1,7 @@
-'use babel';
-
-import * as path from 'path';
-import * as fs from 'fs';
-import { tmpdir } from 'os';
-import { sync as rimrafSync } from 'rimraf';
+const path = require('path');
+const fs = require('fs');
+const { tmpdir } = require('os');
+const { sync: rimrafSync } = require('rimraf');
 
 const fixtures = path.join(__dirname, 'fixtures');
 const configStandardPath = path.join(fixtures, 'bad', 'stylelint-config-standard.css');
@@ -35,14 +33,13 @@ function copyFileToDir(fileToCopyPath, destinationDir) {
  * @param  {string} fileToCopyPath  Path of the file to be copied
  * @return {string}                 Full path of the file in copy destination
  */
-// eslint-disable-next-line import/prefer-default-export
-export async function copyFileToTempDir(fileToCopyPath) {
+async function copyFileToTempDir(fileToCopyPath) {
   const tempFixtureDir = fs.mkdtempSync(tmpdir() + path.sep);
   return copyFileToDir(fileToCopyPath, tempFixtureDir);
 }
 
 describe('The stylelint provider for Linter', () => {
-  const { lint } = require('../lib/index').provideLinter();
+  const { lint } = require('../lib/index.cjs').provideLinter();
 
   beforeEach(async () => {
     atom.config.set('linter-stylelint.useStandard', false);
