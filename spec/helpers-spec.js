@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('node:path');
 const helpers = require('../lib/helpers.cjs');
 
 const fixtures = path.join(__dirname, 'fixtures');

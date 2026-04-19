@@ -1,6 +1,6 @@
-const path = require('path');
-const fs = require('fs');
-const { tmpdir } = require('os');
+const path = require('node:path');
+const fs = require('node:fs');
+const { tmpdir } = require('node:os');
 const { sync: rimrafSync } = require('rimraf');
 
 const fixtures = path.join(__dirname, 'fixtures');
