@@ -3,41 +3,65 @@ version: 2
 defaults: &defaults
   working_directory: /tmp/project
   docker:
-    - image: arcanemagus/atom-docker-ci:stable
+    - image: cimg/node:20.11
   environment:
     # Pre-install the required language file as package activation doesn't wait
     # for the installation to complete.
-    APM_TEST_PACKAGES: "language-postcss"
+    PPM_TEST_PACKAGES: "language-postcss"
   steps:
     # Restore project state
     - attach_workspace:
         at: /tmp
     - run:
-        name: Create VFB for Atom to run in
-        command: /usr/local/bin/xvfb_start
-    - run:
-        name: Atom version
-        command: ${ATOM_SCRIPT_PATH} --version
-    - run:
-        name: APM version
-        command: ${APM_SCRIPT_PATH} --version
-    - run:
-        name: Package APM package dependencies
+        name: Install system dependencies
         command: |
-          if [ -n "${APM_TEST_PACKAGES}" ]; then
-            for pack in ${APM_TEST_PACKAGES}; do
-            ${APM_SCRIPT_PATH} install "${pack}"
+          sudo apt-get update
+          sudo apt-get install -y \
+            wget \
+            gdebi-core \
+            libgbm1 \
+            libgtk-3-0 \
+            libnss3 \
+            libxss1 \
+            libasound2 \
+            libx11-xcb1 \
+            libdrm2 \
+            libxdamage1 \
+            libxfixes3 \
+            libxrandr2 \
+            libxcomposite1 \
+            xvfb
+    - run:
+        name: Install Pulsar (latest .deb)
+        command: |
+          wget -O pulsar.deb \
+            https://github.com/pulsar-edit/pulsar/releases/download/v1.131.3/Linux.pulsar_1.131.3_amd64.deb
+          sudo apt-get install -y ./pulsar.deb
+    - run:
+        name: Create VFB for Atom to run in
+        command: |
+          Xvfb :99 -screen 0 1280x1024x24 &
+          echo "export DISPLAY=:99" >> $BASH_ENV
+    - run:
+        name: PPM version
+        command: ppm --version
+    - run:
+        name: Package PPM package dependencies
+        command: |
+          if [ -n "${PPM_TEST_PACKAGES}" ]; then
+            for pack in ${PPM_TEST_PACKAGES}; do
+            ppm install "${pack}"
             done
           fi;
     - run:
         name: Package dependencies
-        command: ${APM_SCRIPT_PATH} install
+        command: ppm install
     - run:
         name: Cleaning package
-        command: ${APM_SCRIPT_PATH} clean
+        command: ppm clean
     - run:
         name: Package specs
-        command: ${ATOM_SCRIPT_PATH} --test spec
+        command: pulsar --test spec
     # Cache node_modules
     - save_cache:
         paths:
@@ -88,12 +112,8 @@ jobs:
       - run:
           name: Lint code
           command: npm run lint
-  stable:
+  test:
     <<: *defaults
-  beta:
-    <<: *defaults
-    docker:
-      - image: arcanemagus/atom-docker-ci:beta
 
 workflows:
   version: 2
@@ -103,9 +123,6 @@ workflows:
       - lint:
           requires:
             - checkout_code
-      - stable:
-          requires:
-            - lint
-      - beta:
+      - test:
           requires:
             - lint
