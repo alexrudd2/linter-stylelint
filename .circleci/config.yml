@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 
 defaults: &defaults
   working_directory: /tmp/project
@@ -67,8 +67,6 @@ defaults: &defaults
 jobs:
   checkout_code:
     <<: *defaults
-    docker:
-      - image: circleci/node:latest
     steps:
       - checkout
       # Restore node_modules from the last build
@@ -90,8 +88,6 @@ jobs:
             - project
   lint:
     <<: *defaults
-    docker:
-      - image: circleci/node:latest
     steps:
       # Restore project state
       - attach_workspace:
@@ -112,7 +108,6 @@ jobs:
     <<: *defaults
 
 workflows:
-  version: 2
   test_package:
     jobs:
       - checkout_code
