@@ -9,29 +9,29 @@ const warningPath = path.join(fixtures, 'warn', 'warn.css');
 const invalidRulePath = path.join(fixtures, 'invalid-rule', 'styles.css');
 const autofixablePath = path.join(fixtures, 'autofix');
 
-const blockNoEmpty = 'Unexpected empty block (block-no-empty)';
+const blockNoEmpty = 'Empty block (block-no-empty)';
 const blockNoEmptyUrl = 'http://stylelint.io/user-guide/rules/block-no-empty';
 
 /**
  * Async helper to copy a file from one place to another on the filesystem.
  * @param  {string} fileToCopyPath  Path of the file to be copied
  * @param  {string} destinationDir  Directory to paste the file into
- * @return {string}                 Full path of the file in copy destination
+ * @return {Promise<string>}        Full path of the file in copy destination
  */
-function copyFileToDir(fileToCopyPath, destinationDir) {
-  return new Promise((resolve) => {
-    const destinationPath = path.join(destinationDir, path.basename(fileToCopyPath));
-    const ws = fs.createWriteStream(destinationPath);
-    ws.on('close', () => resolve(destinationPath));
-    fs.createReadStream(fileToCopyPath).pipe(ws);
-  });
+async function copyFileToDir(fileToCopyPath, destinationDir) {
+  const destinationPath = path.join(
+    destinationDir,
+    path.basename(fileToCopyPath)
+  );
+  await fs.promises.copyFile(fileToCopyPath, destinationPath);
+  return destinationPath;
 }
 
 /**
- * Utility helper to copy a file into the OS temp directory.
+ * Async utility helper to copy a file into the OS temp directory.
  *
  * @param  {string} fileToCopyPath  Path of the file to be copied
- * @return {string}                 Full path of the file in copy destination
+ * @return {Promise<string>}                 Full path of the file in copy destination
  */
 async function copyFileToTempDir(fileToCopyPath) {
   const tempFixtureDir = fs.mkdtempSync(tmpdir() + path.sep);
@@ -49,7 +49,7 @@ describe('The stylelint provider for Linter', () => {
     atom.workspace.destroyActivePaneItem();
 
     await atom.packages.activatePackage('language-css');
-    await atom.packages.activatePackage('linter-stylelint');
+    await atom.packages.activatePackage('linter-stylelint-pulsar');
   });
 
   it('bundles and works with stylelint-config-standard', async () => {
@@ -94,13 +94,13 @@ describe('The stylelint provider for Linter', () => {
     expect(messages.length).toBe(1);
 
     expect(messages[0].severity).toBe('error');
-    expect(messages[0].excerpt).toBe('Unknown word (CssSyntaxError)');
+    expect(messages[0].excerpt).toBe('Unknown word >>> (CssSyntaxError)');
     expect(messages[0].location.file).toBe(invalidPath);
     expect(messages[0].location.position).toEqual([[0, 0], [0, 3]]);
   });
 
   it('shows an error on non-fatal stylelint runtime error', async () => {
-    const text = 'Invalid option "foo" for rule "block-no-empty"';
+    const text = 'Invalid option value "foo" for rule "block-no-empty"';
     const editor = await atom.workspace.open(invalidRulePath);
     const messages = await lint(editor);
     expect(messages.length).toBe(1);
@@ -121,8 +121,8 @@ describe('The stylelint provider for Linter', () => {
     const messages = await lint(editor);
     expect(messages.length).toBe(0);
 
-    const { args } = addError.mostRecentCall;
-    expect(addError.calls.length).toBe(1);
+    const { args } = addError.calls.mostRecent();
+    expect(addError.calls.count()).toBe(1);
     expect(args[0]).toBe('Unable to parse stylelint configuration');
     expect(args[1].detail).toContain('Could not find "some-module-that-will-never-exist".');
     expect(args[1].dismissable).toBe(true);
@@ -138,8 +138,8 @@ describe('The stylelint provider for Linter', () => {
     const messages = await lint(editor);
     expect(messages.length).toBe(0);
 
-    const { args } = addError.mostRecentCall;
-    expect(addError.calls.length).toBe(1);
+    const { args } = addError.calls.mostRecent();
+    expect(addError.calls.count()).toBe(1);
     expect(args[0]).toBe('Unable to parse stylelint configuration');
     expect(args[1].detail).toContain('>>>');
     expect(args[1].dismissable).toBe(true);
@@ -147,11 +147,10 @@ describe('The stylelint provider for Linter', () => {
 
   it('disables when no configuration file is found', async () => {
     spyOn(atom.notifications, 'addError').and.callFake(() => ({}));
-
     const editor = await atom.workspace.open(configStandardPath);
     const messages = await lint(editor);
     expect(messages.length).toBe(0);
-    expect(atom.notifications.addError.calls.length).toBe(0);
+    expect(atom.notifications.addError.calls.count()).toBe(0);
   });
 
   describe('ignores files when files are specified in ignoreFiles and', () => {
@@ -263,10 +262,9 @@ describe('The stylelint provider for Linter', () => {
     it('shows lint messages when found', async () => {
       const editor = await atom.workspace.open(badSugarSS);
       const messages = await lint(editor);
-
       expect(messages[0].severity).toBe('error');
-      expect(messages[0].excerpt).toBe('Expected a leading zero (number-leading-zero)');
-      expect(messages[0].url).toBe('http://stylelint.io/user-guide/rules/number-leading-zero');
+      expect(messages[0].excerpt).toBe('Expected a leading zero (@stylistic/number-leading-zero)');
+      expect(messages[0].url).toBe('https://github.com/AtomLinter/linter-stylelint/tree/master/docs/linkingNewRule.md');
       expect(messages[0].location.file).toBe(badSugarSS);
       expect(messages[0].location.position).toEqual([[1, 38], [1, 40]]);
     });
@@ -280,11 +278,11 @@ describe('The stylelint provider for Linter', () => {
 
   describe('the fixOnSave option', () => {
     it('lint updates the editor for autofixable rules when shouldFix is true', async () => {
-      const tempPath = copyFileToTempDir(path.join(autofixablePath, 'bad.css'));
+      const tempPath = await copyFileToTempDir(path.join(autofixablePath, 'bad.css'));
       const tempDir = path.dirname(tempPath);
       const editor = await atom.workspace.open(tempPath);
       const oldText = editor.getText();
-      copyFileToDir(path.join(autofixablePath, '.stylelintrc'), tempDir);
+      await copyFileToDir(path.join(autofixablePath, '.stylelintrc'), tempDir);
       const messages = await lint(editor);
       expect(messages.length).toBe(3);
       const messagesAfterFixing = await lint(editor, { shouldFix: true });
@@ -294,12 +292,12 @@ describe('The stylelint provider for Linter', () => {
     });
 
     it('applies autofixes when saving', async () => {
-      const tempPath = copyFileToTempDir(path.join(autofixablePath, 'bad.css'));
+      const tempPath = await copyFileToTempDir(path.join(autofixablePath, 'bad.css'));
       const tempDir = path.dirname(tempPath);
       const editor = await atom.workspace.open(tempPath);
       const oldText = editor.getText();
       atom.config.set('linter-stylelint.fixOnSave', true);
-      copyFileToDir(path.join(autofixablePath, '.stylelintrc'), tempDir);
+      await copyFileToDir(path.join(autofixablePath, '.stylelintrc'), tempDir);
       const messages = await lint(editor);
       expect(messages.length).toBe(3);
       await editor.save();
@@ -310,12 +308,12 @@ describe('The stylelint provider for Linter', () => {
     });
 
     it('does not update the editor if fixOnSave is disabled', async () => {
-      const tempPath = copyFileToTempDir(path.join(autofixablePath, 'bad.css'));
+      const tempPath = await copyFileToTempDir(path.join(autofixablePath, 'bad.css'));
       const tempDir = path.dirname(tempPath);
       const editor = await atom.workspace.open(tempPath);
       const oldText = editor.getText();
-      atom.config.set('linter-stylelint.fixOnSave', false);
-      copyFileToDir(path.join(autofixablePath, '.stylelintrc'), tempDir);
+      atom.config.set('linter-stylelint-pulsar.fixOnSave', false);
+      await copyFileToDir(path.join(autofixablePath, '.stylelintrc'), tempDir);
       const messages = await lint(editor);
       expect(messages.length).toBe(3);
       await editor.save();

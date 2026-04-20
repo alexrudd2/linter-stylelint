@@ -73,6 +73,7 @@
     "@commitlint/cli": "20.5.0",
     "@commitlint/config-conventional": "20.5.0",
     "@commitlint/travis-cli": "20.5.0",
+    "@stylistic/stylelint-plugin": "^5.1.0",
     "atom-jasmine2-test-runner": "^2.99.1",
     "husky": "9.1.7",
     "rimraf": "^6.0.0",

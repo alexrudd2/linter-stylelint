@@ -1,6 +1,7 @@
 {
+  "plugins": ["@stylistic/stylelint-plugin"],
   "rules": {
-    "length-zero-no-unit": true,
-    "indentation": 4
+    "@stylistic/indentation": 4,
+    "length-zero-no-unit": true
   }
 }

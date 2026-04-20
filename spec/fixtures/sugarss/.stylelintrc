@@ -1,5 +1,6 @@
 {
+  "plugins": ["@stylistic/stylelint-plugin"],
   "rules": {
-    "number-leading-zero": "always"
+    "@stylistic/number-leading-zero": "always"
   }
 }
