@@ -30,18 +30,14 @@ defaults: &defaults
             libxfixes3 \
             libxrandr2 \
             libxcomposite1 \
-            xvfb
+            xvfb \
+            dbus-x11
     - run:
         name: Install Pulsar (latest .deb)
         command: |
           wget -O pulsar.deb \
             https://github.com/pulsar-edit/pulsar/releases/download/v1.131.3/Linux.pulsar_1.131.3_amd64.deb
           sudo apt-get install -y ./pulsar.deb
-    - run:
-        name: Create VFB for Atom to run in
-        command: |
-          Xvfb :99 -screen 0 1280x1024x24 &
-          echo "export DISPLAY=:99" >> $BASH_ENV
     - run:
         name: PPM version
         command: ppm --version
@@ -61,7 +57,7 @@ defaults: &defaults
         command: ppm clean
     - run:
         name: Package specs
-        command: pulsar --test spec
+        command: xvfb-run pulsar --test spec
     # Cache node_modules
     - save_cache:
         paths:
