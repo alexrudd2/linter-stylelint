@@ -101,7 +101,8 @@
   },
   "renovate": {
     "extends": [
-      "config:recommended"
+      "config:recommended",
+      ":preserveSemverRanges"
     ],
     "packageRules": [
       {
