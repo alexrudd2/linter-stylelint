@@ -36,7 +36,7 @@ defaults: &defaults
         name: Install Pulsar (latest .deb)
         command: |
           wget -O pulsar.deb \
-            https://github.com/pulsar-edit/pulsar/releases/download/v1.131.3/Linux.pulsar_1.131.3_amd64.deb
+            https://github.com/pulsar-edit/pulsar/releases/download/v1.132.1/Linux.pulsar_1.132.1_amd64.deb
           sudo apt-get install -y ./pulsar.deb
     - run:
         name: PPM version
