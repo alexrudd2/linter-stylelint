@@ -73,8 +73,7 @@
     "@stylistic/stylelint-plugin": "^5.1.0",
     "atom-jasmine2-test-runner": "^2.99.1",
     "husky": "9.1.7",
-    "rimraf": "^6.0.0",
-    "semantic-release": "25.0.9"
+    "rimraf": "^6.0.0"
   },
   "package-deps": [
     {
@@ -88,14 +87,6 @@
         "2.0.0": "provideLinter"
       }
     }
-  },
-  "release": {
-    "extends": "@semantic-release/apm-config"
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
   },
   "renovate": {
     "extends": [
