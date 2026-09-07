@@ -23,7 +23,7 @@ defaults: &defaults
             libgtk-3-0 \
             libnss3 \
             libxss1 \
-            libasound2 \
+            libasound2t64 \
             libx11-xcb1 \
             libdrm2 \
             libxdamage1 \
