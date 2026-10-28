@@ -61,7 +61,7 @@
     "@types/jasmine": "^6.0.0",
     "assign-deep": "1.0.1",
     "atom-linter": "10.0.0",
-    "postcss-less": "^6.0.0",
+    "postcss-less": "^7.0.0",
     "postcss-scss": "4.0.9",
     "resolve": "1.22.12",
     "stylelint": "^17.8.0",
