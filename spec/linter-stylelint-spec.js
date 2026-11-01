@@ -42,10 +42,9 @@ describe('The stylelint provider for Linter', () => {
   const { lint } = require('../lib/index.cjs').provideLinter();
 
   beforeEach(async () => {
-    atom.config.set('linter-stylelint.useStandard', false);
-    atom.config.set('linter-stylelint.disableWhenNoConfig', true);
-    atom.config.set('linter-stylelint.showIgnored', false);
-    atom.config.set('linter-stylelint.fixOnSave', false);
+    atom.config.set('linter-stylelint-pulsar.noConfigBehavior', 'skip');
+    atom.config.set('linter-stylelint-pulsar.showIgnored', false);
+    atom.config.set('linter-stylelint-pulsar.fixOnSave', false);
     atom.workspace.destroyActivePaneItem();
 
     await atom.packages.activatePackage('language-css');
@@ -53,7 +52,7 @@ describe('The stylelint provider for Linter', () => {
   });
 
   it('bundles and works with stylelint-config-standard', async () => {
-    atom.config.set('linter-stylelint.useStandard', true);
+    atom.config.set('linter-stylelint-pulsar.noConfigBehavior', 'standard');
     const editor = await atom.workspace.open(configStandardPath);
     const messages = await lint(editor);
     expect(messages.length).toBeGreaterThan(0);
@@ -157,7 +156,7 @@ describe('The stylelint provider for Linter', () => {
     const ignorePath = path.join(fixtures, 'ignore-files', 'styles.css');
 
     it('shows a message when asked to', async () => {
-      atom.config.set('linter-stylelint.showIgnored', true);
+      atom.config.set('linter-stylelint-pulsar.showIgnored', true);
       const editor = await atom.workspace.open(ignorePath);
       const messages = await lint(editor);
       expect(messages.length).toBe(1);
@@ -169,7 +168,7 @@ describe('The stylelint provider for Linter', () => {
     });
 
     it("doesn't show a message when not asked to", async () => {
-      atom.config.set('linter-stylelint.showIgnored', false);
+      atom.config.set('linter-stylelint-pulsar.showIgnored', false);
       const editor = await atom.workspace.open(ignorePath);
       const messages = await lint(editor);
       expect(messages.length).toBe(0);
@@ -296,7 +295,7 @@ describe('The stylelint provider for Linter', () => {
       const tempDir = path.dirname(tempPath);
       const editor = await atom.workspace.open(tempPath);
       const oldText = editor.getText();
-      atom.config.set('linter-stylelint.fixOnSave', true);
+      atom.config.set('linter-stylelint-pulsar.fixOnSave', true);
       await copyFileToDir(path.join(autofixablePath, '.stylelintrc'), tempDir);
       const messages = await lint(editor);
       expect(messages.length).toBe(3);
