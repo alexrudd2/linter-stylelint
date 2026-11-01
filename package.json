@@ -64,7 +64,6 @@
   },
   "homepage": "https://github.com/alexrudd2/linter-stylelint#readme",
   "dependencies": {
-    "@types/jasmine": "^7.0.0",
     "assign-deep": "1.0.1",
     "atom-linter": "10.0.0",
     "postcss-less": "^7.0.0",
@@ -77,6 +76,7 @@
   "devDependencies": {
     "@biomejs/biome": "^2.5.12",
     "@stylistic/stylelint-plugin": "^5.1.0",
+    "@types/jasmine": "^7.0.0",
     "atom-jasmine2-test-runner": "^2.99.1",
     "husky": "9.1.7",
     "rimraf": "^6.0.0"
