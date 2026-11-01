@@ -1,3 +1,17 @@
+## [5.0.0](https://github.com/alexrudd2/linter-stylelint/compare/v4.5.1...v6.0.0) (2026-09-07)
+
+### Maintenance
+
+* Project is now maintained at [alexrudd2/linter-stylelint](https://github.com/alexrudd2/linter-stylelint), continuing from [AtomLinter/linter-stylelint](https://github.com/AtomLinter/linter-stylelint). Issues and pull requests should be filed at the new repository.
+* Update CI and linting
+* Mostly switch to ESM
+* Migrate package naming to pulsar
+
+### Bug Fixes
+
+* **deps:** Update all dependencies to Sep 2026
+
+
 ## [4.5.1](https://github.com/AtomLinter/linter-stylelint/compare/v4.5.0...v4.5.1) (2020-05-12)
 
 
