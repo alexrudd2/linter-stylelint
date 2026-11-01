@@ -1,9 +1,11 @@
 ## [5.1.0](https://github.com/alexrudd2/linter-stylelint/compare/v5.0.0...v5.1.0) (2026-11-01)
 
 ### Bug Fixes
-
-* **deps:** Update all dependencies to Oct 2026
 * Fix configuration options for the case when no stylelint config is found
+
+### Maintenance ###
+* **deps:** Update all dependencies to Oct 2026
+* **deps:** Remove `atom-linter` as a dependency
 
 ## [5.0.0](https://github.com/alexrudd2/linter-stylelint/compare/v4.5.1...v5.0.0) (2026-09-07)
 
