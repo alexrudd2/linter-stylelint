@@ -12,7 +12,7 @@
     "atom": ">=1.7.0 <2.0.0"
   },
   "scripts": {
-    "test": "APM_TEST_PACKAGES='linter-stylelint language-postcss' pulsar --test spec",
+    "test": "APM_TEST_PACKAGES='linter-stylelint-pulsar language-postcss' pulsar --test spec",
     "lint": "biome lint .",
     "prepare": "husky install"
   },
@@ -38,28 +38,39 @@
     "url": "https://github.com/alexrudd2/linter-stylelint/issues"
   },
   "configSchema": {
-    "useStandard": {
-      "title": "Use standard",
-      "description": "Use the stylelint-config-standard lint configuration when no other configuration is found. Disables the \"Disable when no config\" option.",
-      "type": "boolean",
-      "default": false
-    },
-    "disableWhenNoConfig": {
-      "title": "Disable when no config is found",
-      "description": "You can find the list of supported formats in the [stylelint docs](https://stylelint.io/user-guide/configuration/#loading-the-configuration-object).",
-      "type": "boolean",
-      "default": true
+    "noConfigBehavior": {
+      "title": "When no config is found",
+      "description": "What to do with a file for which stylelint finds no configuration.",
+      "type": "string",
+      "default": "skip",
+      "enum": [
+        {
+          "value": "standard",
+          "description": "Lint with stylelint-config-standard"
+        },
+        {
+          "value": "skip",
+          "description": "Don't lint the file"
+        },
+        {
+          "value": "warn",
+          "description": "Don't lint, and show a one-time warning"
+        }
+      ],
+      "order": 1
     },
     "showIgnored": {
       "title": "Show message when a file is ignored",
       "type": "boolean",
-      "default": false
+      "default": false,
+      "order": 2
     },
     "fixOnSave": {
       "description": "Automatically attempt to fix errors using stylelint --fix flag (experimental)",
       "title": "Attempt to fix styles on save",
       "type": "boolean",
-      "default": false
+      "default": false,
+      "order": 3
     }
   },
   "homepage": "https://github.com/alexrudd2/linter-stylelint#readme",
