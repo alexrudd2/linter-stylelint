@@ -27,6 +27,12 @@
     "email": "shogo.sensui@gmail.com",
     "url": "http://github.com/1000ch"
   },
+  "contributors": [
+    "Alex Ruddick <alex@ruddick.tech> (https://github.com/alexrudd2)"
+  ],
+  "maintainers": [
+    "Alex Ruddick <alex@ruddick.tech> (https://github.com/alexrudd2)"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/alexrudd2/linter-stylelint/issues"
