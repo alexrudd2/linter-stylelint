@@ -78,7 +78,7 @@
     "assign-deep": "1.0.1",
     "postcss-less": "^7.0.0",
     "postcss-scss": "4.0.9",
-    "resolve": "1.22.13",
+    "resolve": "1.22.14",
     "stylelint": "^17.8.0",
     "stylelint-config-standard": "^40.0.0",
     "sugarss": "^5.0.1"
