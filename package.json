@@ -107,6 +107,7 @@
   "renovate": {
     "extends": [
       "config:recommended",
+      "packages:stylelint",
       ":preserveSemverRanges"
     ],
     "packageRules": [
