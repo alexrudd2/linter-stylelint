@@ -14,7 +14,7 @@
   "scripts": {
     "test": "APM_TEST_PACKAGES='linter-stylelint-pulsar language-postcss' pulsar --test spec",
     "lint": "biome lint .",
-    "prepare": "husky install"
+    "prepare": "husky init"
   },
   "keywords": [
     "css",
